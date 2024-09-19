@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Exemplo 1
+    </title>
+    <body>
+        <div>
+                <h1>Cifra de César - Exemplo 1</h1>
+
+                <div>
+                    <label id="lblTextoOriginal" for="campoTexto">Texto Original</label>
+                    <input id="campoTexto" name="campoTexto" type="text" value="" size="50"/>
+                    <input id="btnCifrar" value="Cifrar" type="button" onclick="cifrar()"/> 
+                </div>
+          
+               <br>
+             
+                <div>
+                    <label id="lblTextoCifrado" for="txaTextoCifrado">Texto Cifrado</label>
+                    <textarea id="txaTextoCifrado" name="txaTextoCifrado" rows="4" cols="50" disabled></textarea>
+                    <input id="btnCifrar" value="Decifrar" type="button" onclick="deCifrar()"/> 
+                </div>
+
+        </div>
+    </body>
+    <script type="text/javascript">
+        function cifrar(){
+
+            alert("Clicou no botão cifrar!!!");
+        }
+        function deCifrar(){
+
+            alert("Clicou no botão decifrar !!!");
+        }
+
+    </script>
+
+</html>

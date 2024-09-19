@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Exemplo 1
+    </title>
+    <body>
+        <div>
+                <h1>Cifra de Vigenère - Exemplo 3</h1>
+                <div>
+                    <label>Chave:</label>
+                    <input type="text" value="KEY" id="campoChave">
+                </div>
+
+                <br>
+
+                <div>
+                    <label id="lblTextoOriginal" for="campoTexto">Texto Original</label>
+                    <textarea id="campoTexto" name="campoTexto" rows="4" cols="50"></textarea>
+                    <input id="btnCifrar" value="Cifrar" type="button" onclick="cifrar()"/> 
+                </div>
+          
+               <br>
+             
+                <div>
+                    <label id="lblTextoCifrado" for="txaTextoCifrado">Texto Cifrado</label>
+                    <textarea id="txaTextoCifrado" name="txaTextoCifrado" rows="4" cols="50"></textarea>
+                    <input id="btnCifrar" value="Decifrar" type="button" onclick="deCifrar()"/> 
+                </div>
+
+        </div>
+    </body>
+    <script type="text/javascript">
+        var alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        function cifrar(){
+
+            alert("Clicou no botão cifrar!!!");
+            var texto = document.getElementById('campoTexto').value
+            texto = texto.toUpperCase()
+
+            var chave = document.getElementById("campoChave").value; 
+            var chave_normalizada = chave;
+            var indice = 0;
+            if(chave.length < texto.length){
+                for(var i = chave.length; i < texto.length; i++){
+
+                    chave_normalizada = chave_normalizada + chave[indice];
+
+                    if(indice == chave.length - 1){
+                        indice = 0;
+                    }else{
+                        indice = indice + 1;
+                    }
+                }
+
+            }
+            
+            var textoCifrado = "";
+           
+
+            for(var i = 0; i < texto.length; i++){
+                
+                var indice_caracter_texto_alfabeto = alfabeto.indexOf(texto[i])
+                var indice_caracter_texto_chave =  alfabeto.indexOf(chave_normalizada[i])
+
+                var indice = indice_caracter_texto_alfabeto + indice_caracter_texto_chave
+               
+                if(indice > -1){
+                    //Math.abs
+                    var posicao = ((indice) % alfabeto.length)
+                    if(posicao < 0){
+                        posicao = posicao + alfabeto.length
+                    }
+                    //alert(posicao)
+                    textoCifrado = textoCifrado + alfabeto[posicao];
+                    
+                }else{
+                    textoCifrado = textoCifrado + texto[i];
+                }
+                
+            }
+            document.getElementById("txaTextoCifrado").value = textoCifrado
+            
+           
+        }
+        function deCifrar(){
+
+            alert("Clicou no botão decifrar !!!");
+        }
+
+    </script>
+
+</html>
