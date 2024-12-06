@@ -129,19 +129,18 @@
 
                 var indice =  (indice_caracter_texto_alfabeto - indice_caracter_texto_chave)
 
+                if(indice < 0){
+                    indice = indice + alfabeto.length
+                }
                 if(indice > -1){
                     //Math.abs
                     var posicao = ((indice) % alfabeto.length)
-                    if(posicao < 0){
-                        posicao = posicao + alfabeto.length
-                    }
+                   
                     //alert(posicao)
                     textoCifrado = textoCifrado + alfabeto[posicao];
                     
                 }else{
                     textoCifrado = textoCifrado + texto[i];
-
-
                     alert("Erro decifragem - indice negativo para o caracter: " + texto[i]+ " indice: " + (indice));
                 }
                 
