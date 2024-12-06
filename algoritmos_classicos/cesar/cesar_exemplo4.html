@@ -64,6 +64,34 @@
         function deCifrar(){
 
             alert("Clicou no botão decifrar !!!");
+
+            var texto = document.getElementById('txaTextoCifrado').value 
+            
+            texto = texto.toUpperCase()
+
+            var textoCifrado = "";
+            var chave = -1 * parseInt(document.getElementById("campoChave").value);
+
+            for(var i = 0; i < texto.length; i++){
+                
+                var indice = alfabeto.indexOf(texto[i])
+                if(indice > -1){
+                    //Math.abs
+                    var posicao = ((indice + chave) % 26)
+                    if(posicao < 0){
+                        posicao = posicao + 26
+                    }
+                    //alert(posicao)
+                    textoCifrado = textoCifrado + alfabeto[posicao];
+                    
+                }else{
+                    textoCifrado = textoCifrado + texto[i];
+                }
+                
+            }
+
+            document.getElementById("campoTexto").value = textoCifrado
+
         }
 
     </script>

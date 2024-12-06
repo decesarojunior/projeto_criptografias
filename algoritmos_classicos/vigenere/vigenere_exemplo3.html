@@ -6,26 +6,21 @@
     <body>
         <div>
                 <h1>Cifra de Vigenère - Exemplo 3</h1>
-                <div>
-                    <label>Chave:</label>
+
+                <div style="width: 12%;float: left;">
+                    <div style="text-align: left;"><label>Chave:</label></div>
+                    <div style="text-align: left;height: 90px;"><label id="lblTextoOriginal" for="campoTexto">Texto Original</label></div>
+                    <div style="text-align: left"><label id="lblTextoCifrado" for="txaTextoCifrado">Texto Cifrado</label></div>
+                </div>
+
+                <div style="width: 12%; float: left;">
                     <input type="text" value="KEY" id="campoChave">
-                </div>
-
-                <br>
-
-                <div>
-                    <label id="lblTextoOriginal" for="campoTexto">Texto Original</label>
-                    <textarea id="campoTexto" name="campoTexto" rows="4" cols="50"></textarea>
+                    <textarea id="campoTexto" name="campoTexto" rows="4" cols="80"></textarea>
                     <input id="btnCifrar" value="Cifrar" type="button" onclick="cifrar()"/> 
-                </div>
-          
-               <br>
-             
-                <div>
-                    <label id="lblTextoCifrado" for="txaTextoCifrado">Texto Cifrado</label>
-                    <textarea id="txaTextoCifrado" name="txaTextoCifrado" rows="4" cols="50"></textarea>
+                    <textarea id="txaTextoCifrado" name="txaTextoCifrado" rows="4" cols="80"></textarea>
                     <input id="btnCifrar" value="Decifrar" type="button" onclick="deCifrar()"/> 
                 </div>
+
 
         </div>
     </body>
@@ -33,11 +28,81 @@
         var alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         function cifrar(){
 
-            alert("Clicou no botão cifrar!!!");
+            //alert("Clicou no botão cifrar!!!");
             var texto = document.getElementById('campoTexto').value
             texto = texto.toUpperCase()
 
-            var chave = document.getElementById("campoChave").value; 
+            var chave = document.getElementById("campoChave").value;
+            chave = chave.toUpperCase()
+            var chave_normalizada = chave;
+            var indice = 0;
+            if(chave.length < texto.length){
+                for(var i = chave.length; i < texto.length; i++){
+
+                    chave_normalizada = chave_normalizada + chave[indice];
+
+                    if(indice == chave.length - 1){
+                        indice = 0;
+                    }else{
+                        indice = indice + 1;
+                    }
+                }
+
+            }
+            
+            var textoCifrado = "";
+            //texto = texto.replace("",",");
+            //texto = texto.replace(""," ");
+
+            for(var i = 0; i < texto.length; i++){
+
+                var indice_caracter_texto_alfabeto = alfabeto.indexOf(texto[i])
+                var indice_caracter_texto_chave =  alfabeto.indexOf(chave_normalizada[i])
+
+                //alert(indice_caracter_texto_alfabeto)
+                //alert(indice_caracter_texto_chave)
+                //alert(chave_normalizada[i]);
+
+                /*
+                if(indice_caracter_texto_chave == 0){
+                    indice_caracter_texto_chave = indice_caracter_texto_chave + 0;
+                }
+                */
+ 
+                var indice = indice_caracter_texto_alfabeto + indice_caracter_texto_chave
+
+                //alert(indice_caracter_texto_alfabeto)
+                //alert(indice_caracter_texto_chave)
+                //alert((indice % 26))
+                //alert(alfabeto[(indice % 26)])
+
+                if(indice > -1){
+                    //Math.abs
+                    var posicao = ((indice) % alfabeto.length)
+                    if(posicao < 0){
+                        posicao = posicao + alfabeto.length
+                    }
+                    //alert(posicao)
+                    textoCifrado = textoCifrado + alfabeto[posicao];
+                    
+                }else{
+                    textoCifrado = textoCifrado + texto[i];
+                }
+
+            }
+            document.getElementById("txaTextoCifrado").value = textoCifrado
+            
+           
+        }
+        function deCifrar(){
+
+            alert("Clicou no botão decifrar !!!");
+            
+            var texto = document.getElementById('txaTextoCifrado').value
+            texto = texto.toUpperCase()
+
+            var chave = document.getElementById("campoChave").value;
+            chave = chave.toUpperCase();
             var chave_normalizada = chave;
             var indice = 0;
             if(chave.length < texto.length){
@@ -62,8 +127,8 @@
                 var indice_caracter_texto_alfabeto = alfabeto.indexOf(texto[i])
                 var indice_caracter_texto_chave =  alfabeto.indexOf(chave_normalizada[i])
 
-                var indice = indice_caracter_texto_alfabeto + indice_caracter_texto_chave
-               
+                var indice =  (indice_caracter_texto_alfabeto - indice_caracter_texto_chave)
+
                 if(indice > -1){
                     //Math.abs
                     var posicao = ((indice) % alfabeto.length)
@@ -75,16 +140,13 @@
                     
                 }else{
                     textoCifrado = textoCifrado + texto[i];
+
+
+                    alert("Erro decifragem - indice negativo para o caracter: " + texto[i]+ " indice: " + (indice));
                 }
                 
             }
-            document.getElementById("txaTextoCifrado").value = textoCifrado
-            
-           
-        }
-        function deCifrar(){
-
-            alert("Clicou no botão decifrar !!!");
+            document.getElementById("campoTexto").value = textoCifrado
         }
 
     </script>
